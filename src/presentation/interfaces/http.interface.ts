@@ -2,7 +2,7 @@
  * File: http.service.ts
  * Project: type-node
  * Created: Thursday, May 6th 2021, 10:59:27 am
- * Last Modified: Thursday, May 6th 2021, 11:06:59 am
+ * Last Modified: Thursday, May 6th 2021, 11:30:37 am
  * Copyright © 2021 AMDE Agência
  */
 
