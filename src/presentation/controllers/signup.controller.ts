@@ -2,7 +2,7 @@
  * File: signup.controller.ts
  * Project: type-node
  * Created: Tuesday, May 4th 2021, 11:25:17 am
- * Last Modified: Thursday, May 6th 2021, 11:19:24 am
+ * Last Modified: Thursday, May 6th 2021, 11:26:23 am
  * Copyright © 2021 AMDE Agência
  */
 
@@ -16,7 +16,8 @@ export class SignupController {
       statusCode: 200,
       body: {}
     }
-    const requiredFields = ['name', 'email']
+    const requiredFields = ['name', 'email', 'password', 'passwordConfirm']
+
     for (const field of requiredFields) {
       if (!httpRequest.body[field]) {
         return badRequest(new MissingParamError(field))
