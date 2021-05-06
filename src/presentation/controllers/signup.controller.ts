@@ -1,3 +1,12 @@
+/*
+ * File: signup.controller.ts
+ * Project: type-node
+ * Created: Tuesday, May 4th 2021, 11:25:17 am
+ * Last Modified: Thursday, May 6th 2021, 11:11:06 am
+ * Copyright © 2021 AMDE Agência
+ */
+
+import {MissingParamError} from '../errors/missing-param.error'
 import {HttpRequest, HttpResponse} from '../services/http.service'
 
 export class SignupController {
@@ -7,11 +16,11 @@ export class SignupController {
       body: {}
     }
     if (!httpRequest.body.name) {
-      return {statusCode: 400, body: new Error('Missing param: name')}
+      return {statusCode: 400, body: new MissingParamError('name')}
     }
 
     if (!httpRequest.body.email) {
-      return {statusCode: 400, body: new Error('Missing param: email')}
+      return {statusCode: 400, body: new MissingParamError('email')}
     }
 
     return response
