@@ -2,7 +2,7 @@
  * File: signup.controller.ts
  * Project: type-node
  * Created: Tuesday, May 4th 2021, 11:25:17 am
- * Last Modified: Wednesday, June 30th 2021, 5:45:08 am
+ * Last Modified: Wednesday, June 30th 2021, 2:10:36 pm
  * Copyright © 2021 AMDE Agência
  */
 
@@ -39,8 +39,12 @@ export class SignupController implements Controller {
         }
       }
 
-      const isValid = this.emailValidator.isValid(httpRequest.body.email)
+      const {email, password, passwordConfirm} = httpRequest.body
+      if (password !== passwordConfirm) {
+        return badRequest(new InvalidParamError('passwordConfirm'))
+      }
 
+      const isValid = this.emailValidator.isValid(email)
       if (!isValid) {
         return badRequest(new InvalidParamError('email'))
       }
