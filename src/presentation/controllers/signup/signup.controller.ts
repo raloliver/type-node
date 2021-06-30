@@ -2,24 +2,27 @@
  * File: signup.controller.ts
  * Project: type-node
  * Created: Tuesday, May 4th 2021, 11:25:17 am
- * Last Modified: Wednesday, June 30th 2021, 2:10:36 pm
+ * Last Modified: Wednesday, June 30th 2021, 2:56:10 pm
  * Copyright © 2021 AMDE Agência
  */
 
-import {InvalidParamError, MissingParamError} from '../errors'
-import {badRequest, serverError} from '../helpers/http.helper'
+import {InvalidParamError, MissingParamError} from '../../errors'
+import {badRequest, serverError} from '../../helpers/http.helper'
 import {
   HttpRequest,
   HttpResponse,
+  Controller,
   EmailValidator,
-  Controller
-} from '../interfaces'
+  AddAccount
+} from '../signup/signup.protocols'
 
 export class SignupController implements Controller {
   private readonly emailValidator: EmailValidator
+  private readonly addAccount: AddAccount
 
-  constructor(emailValidator: EmailValidator) {
+  constructor(emailValidator: EmailValidator, addAccount: AddAccount) {
     this.emailValidator = emailValidator
+    this.addAccount = addAccount
   }
 
   /**
@@ -39,7 +42,7 @@ export class SignupController implements Controller {
         }
       }
 
-      const {email, password, passwordConfirm} = httpRequest.body
+      const {name, email, password, passwordConfirm} = httpRequest.body
       if (password !== passwordConfirm) {
         return badRequest(new InvalidParamError('passwordConfirm'))
       }
@@ -48,6 +51,12 @@ export class SignupController implements Controller {
       if (!isValid) {
         return badRequest(new InvalidParamError('email'))
       }
+
+      this.addAccount.add({
+        name,
+        email,
+        password
+      })
     } catch (error) {
       return serverError()
     }

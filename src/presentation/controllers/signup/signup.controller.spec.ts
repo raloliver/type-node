@@ -2,17 +2,23 @@
  * File: signup.controller.spec.ts
  * Project: type-node
  * Created: Tuesday, May 4th 2021, 11:10:16 am
- * Last Modified: Wednesday, June 30th 2021, 2:07:40 pm
+ * Last Modified: Wednesday, June 30th 2021, 2:57:39 pm
  * Copyright © 2021 AMDE Agência
  */
 
-import {InvalidParamError, MissingParamError, ServerError} from '../errors'
-import {EmailValidator} from '../interfaces'
+import {
+  EmailValidator,
+  AddAccount,
+  AddAccountModel,
+  AccountModel
+} from '../signup/signup.protocols'
+import {InvalidParamError, MissingParamError, ServerError} from '../../errors'
 import {SignupController} from './signup.controller'
 
 interface SutTypes {
   sut: SignupController
   emailValidatorStub: EmailValidator
+  addAccountStub: AddAccount
 }
 
 /**
@@ -22,11 +28,13 @@ interface SutTypes {
  */
 const factorySut = (): SutTypes => {
   const emailValidatorStub = emailValidatorFactory()
+  const addAccountStub = addAccountFactory()
   // SUT: system under test
-  const sut = new SignupController(emailValidatorStub)
+  const sut = new SignupController(emailValidatorStub, addAccountStub)
   return {
     sut,
-    emailValidatorStub
+    emailValidatorStub,
+    addAccountStub
   }
 }
 
@@ -37,6 +45,21 @@ const emailValidatorFactory = (): EmailValidator => {
     }
   }
   return new EmailValidatorStub()
+}
+
+const addAccountFactory = (): AddAccount => {
+  class AddAccountStub implements AddAccount {
+    add(account: AddAccountModel): AccountModel {
+      const fakeAccount = {
+        id: 'id',
+        name: 'name',
+        email: 'email@domain.co',
+        password: 'password'
+      }
+      return fakeAccount
+    }
+  }
+  return new AddAccountStub()
 }
 
 describe('SignupController', () => {
@@ -165,5 +188,26 @@ describe('SignupController', () => {
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(500)
     expect(httpResponse.body).toEqual(new ServerError())
+  })
+
+  test('should call add account with valid values', () => {
+    const {sut, addAccountStub} = factorySut()
+
+    const addSpy = jest.spyOn(addAccountStub, 'add')
+
+    const httpRequest = {
+      body: {
+        name: 'name',
+        email: 'email@domain.co',
+        password: 'password',
+        passwordConfirm: 'password'
+      }
+    }
+    sut.handle(httpRequest)
+    expect(addSpy).toHaveBeenCalledWith({
+      name: 'name',
+      email: 'email@domain.co',
+      password: 'password'
+    })
   })
 })
