@@ -2,7 +2,7 @@
  * File: signup.controller.spec.ts
  * Project: type-node
  * Created: Tuesday, May 4th 2021, 11:10:16 am
- * Last Modified: Wednesday, June 30th 2021, 5:48:57 am
+ * Last Modified: Wednesday, June 30th 2021, 2:07:40 pm
  * Copyright © 2021 AMDE Agência
  */
 
@@ -30,19 +30,10 @@ const factorySut = (): SutTypes => {
   }
 }
 
-const emailValidatorFactory = (): EmailValidator {
+const emailValidatorFactory = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
     isValid(email: string): boolean {
       return true
-    }
-  }
-  return new EmailValidatorStub()
-}
-
-const emailValidatorErrorFactory = (): EmailValidator {
-  class EmailValidatorStub implements EmailValidator {
-    isValid(email: string): boolean {
-      throw new Error()
     }
   }
   return new EmailValidatorStub()
@@ -106,6 +97,21 @@ describe('SignupController', () => {
     expect(httpResponse.body).toEqual(new MissingParamError('passwordConfirm'))
   })
 
+  test('should return 400 status if password does not match', () => {
+    const {sut} = factorySut()
+    const httpRequest = {
+      body: {
+        name: 'name',
+        email: 'email@domain.co',
+        password: 'password',
+        passwordConfirm: 'Password'
+      }
+    }
+    const httpResponse = sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(400)
+    expect(httpResponse.body).toEqual(new InvalidParamError('passwordConfirm'))
+  })
+
   test('should return 400 status if an invalid email is provided', () => {
     const {sut, emailValidatorStub} = factorySut()
 
@@ -143,9 +149,11 @@ describe('SignupController', () => {
   })
 
   test('should return 500 status if email validator throws', () => {
-    const emailValidatorStub = emailValidatorErrorFactory()
     // SUT: system under test
-    const sut = new SignupController(emailValidatorStub)
+    const {sut, emailValidatorStub} = factorySut()
+    jest.spyOn(emailValidatorStub, 'isValid').mockImplementationOnce(() => {
+      throw new Error()
+    })
     const httpRequest = {
       body: {
         name: 'name',
