@@ -2,7 +2,7 @@
  * File: add-account.interface.ts
  * Project: type-node
  * Created: Wednesday, June 30th 2021, 2:24:36 pm
- * Last Modified: Wednesday, June 30th 2021, 2:49:27 pm
+ * Last Modified: Wednesday, June 30th 2021, 3:08:04 pm
  * Copyright © 2021 AMDE Agência
  */
 
@@ -21,5 +21,5 @@ export type AddAccountModel = {
  * @interface AddAccount
  */
 export interface AddAccount {
-  add(account: AddAccountModel): AccountModel
+  add(account: AddAccountModel): Promise<AccountModel>
 }

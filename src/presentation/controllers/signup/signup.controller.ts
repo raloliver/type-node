@@ -2,12 +2,12 @@
  * File: signup.controller.ts
  * Project: type-node
  * Created: Tuesday, May 4th 2021, 11:25:17 am
- * Last Modified: Wednesday, June 30th 2021, 3:03:11 pm
+ * Last Modified: Wednesday, June 30th 2021, 3:09:37 pm
  * Copyright © 2021 AMDE Agência
  */
 
 import {InvalidParamError, MissingParamError} from '../../errors'
-import {badRequest, serverError} from '../../helpers/http.helper'
+import {badRequest, ok, serverError} from '../../helpers/http.helper'
 import {
   HttpRequest,
   HttpResponse,
@@ -32,7 +32,7 @@ export class SignupController implements Controller {
    * @return {*}  {HttpResponse}
    * @memberof SignupController
    */
-  handle(httpRequest: HttpRequest): HttpResponse {
+  async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const requiredFields = ['name', 'email', 'password', 'passwordConfirm']
 
@@ -52,16 +52,13 @@ export class SignupController implements Controller {
         return badRequest(new InvalidParamError('email'))
       }
 
-      const newAccount = this.addAccount.add({
+      const newAccount = await this.addAccount.add({
         name,
         email,
         password
       })
 
-      return {
-        statusCode: 200,
-        body: newAccount
-      }
+      return ok(newAccount)
     } catch (error) {
       return serverError()
     }
