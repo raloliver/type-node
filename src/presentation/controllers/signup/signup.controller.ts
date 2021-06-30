@@ -2,7 +2,7 @@
  * File: signup.controller.ts
  * Project: type-node
  * Created: Tuesday, May 4th 2021, 11:25:17 am
- * Last Modified: Wednesday, June 30th 2021, 2:56:10 pm
+ * Last Modified: Wednesday, June 30th 2021, 3:03:11 pm
  * Copyright © 2021 AMDE Agência
  */
 
@@ -52,11 +52,16 @@ export class SignupController implements Controller {
         return badRequest(new InvalidParamError('email'))
       }
 
-      this.addAccount.add({
+      const newAccount = this.addAccount.add({
         name,
         email,
         password
       })
+
+      return {
+        statusCode: 200,
+        body: newAccount
+      }
     } catch (error) {
       return serverError()
     }

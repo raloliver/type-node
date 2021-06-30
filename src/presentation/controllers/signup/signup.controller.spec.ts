@@ -2,7 +2,7 @@
  * File: signup.controller.spec.ts
  * Project: type-node
  * Created: Tuesday, May 4th 2021, 11:10:16 am
- * Last Modified: Wednesday, June 30th 2021, 2:57:39 pm
+ * Last Modified: Wednesday, June 30th 2021, 3:03:27 pm
  * Copyright © 2021 AMDE Agência
  */
 
@@ -205,6 +205,46 @@ describe('SignupController', () => {
     }
     sut.handle(httpRequest)
     expect(addSpy).toHaveBeenCalledWith({
+      name: 'name',
+      email: 'email@domain.co',
+      password: 'password'
+    })
+  })
+
+  test('should return 500 status if add account throws', () => {
+    // SUT: system under test
+    const {sut, addAccountStub} = factorySut()
+    jest.spyOn(addAccountStub, 'add').mockImplementationOnce(() => {
+      throw new Error()
+    })
+    const httpRequest = {
+      body: {
+        name: 'name',
+        email: 'email@domain.co',
+        password: 'password',
+        passwordConfirm: 'password'
+      }
+    }
+    const httpResponse = sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(500)
+    expect(httpResponse.body).toEqual(new ServerError())
+  })
+
+  test('should return 200 status if valid data is provided', () => {
+    const {sut} = factorySut()
+
+    const httpRequest = {
+      body: {
+        name: 'name',
+        email: 'email@domain.co',
+        password: 'password',
+        passwordConfirm: 'password'
+      }
+    }
+    const httpResponse = sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(200)
+    expect(httpResponse.body).toEqual({
+      id: 'id',
       name: 'name',
       email: 'email@domain.co',
       password: 'password'
