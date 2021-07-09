@@ -2,11 +2,11 @@
  * File: http.helper.ts
  * Project: type-node
  * Created: Thursday, May 6th 2021, 11:11:59 am
- * Last Modified: Wednesday, June 30th 2021, 3:05:34 pm
+ * Last Modified: Friday, July 9th 2021, 3:16:21 pm
  * Copyright © 2021 AMDE Agência
  */
 
-import {ServerError} from '../errors/server.error'
+import {ServerError} from '../errors'
 import {HttpResponse} from '../interfaces/http.interface'
 
 /** o parenteses envolta das chaves é um sintax sugar e a função entende que é necessário retornar o objeto */

@@ -2,7 +2,7 @@
  * File: signup.controller.spec.ts
  * Project: type-node
  * Created: Tuesday, May 4th 2021, 11:10:16 am
- * Last Modified: Wednesday, June 30th 2021, 3:14:07 pm
+ * Last Modified: Friday, July 9th 2021, 3:31:20 pm
  * Copyright © 2021 AMDE Agência
  */
 
