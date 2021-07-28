@@ -1,6 +1,6 @@
 # NodeJS + Typescript + TDD
 
-This API was made with Typescript, follow the TDD approach, and also uses the best design patterns.
+This API was made with Typescript, follows the TDD approach, and also uses the best design patterns.
 
 ### Notes
 
