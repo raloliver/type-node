@@ -2,7 +2,7 @@
  * File: email-validator.adapter.spec.ts
  * Project: type-node
  * Created: Monday, July 26th 2021, 4:11:58 pm
- * Last Modified: Monday, July 26th 2021, 4:37:42 pm
+ * Last Modified: Thursday, July 29th 2021, 8:08:23 pm
  * Copyright © 2021 AMDE Agência
  */
 
@@ -21,7 +21,7 @@ const emailValidatorAdapter = (): EmailValidatorAdapter => {
 }
 
 describe('EmailValidator Adapter', () => {
-  test('Should return false when validator also returns false', () => {
+  test('should return false when validator also returns false', () => {
     const sut = emailValidatorAdapter()
     jest.spyOn(validator, 'isEmail').mockReturnValueOnce(false)
     const isValid = sut.isValid('invalid_email@domain.com.br')
@@ -29,14 +29,14 @@ describe('EmailValidator Adapter', () => {
     expect(isValid).toBe(false)
   })
 
-  test('Should return true when validator also returns true', () => {
+  test('should return true when validator also returns true', () => {
     const sut = emailValidatorAdapter()
     const isValid = sut.isValid('domain@mail.co')
 
     expect(isValid).toBe(true)
   })
 
-  test('Should call validator with correct email', () => {
+  test('should call validator with correct email', () => {
     const sut = emailValidatorAdapter()
     sut.isValid('domain@mail.co')
     const isEmailSpy = jest
