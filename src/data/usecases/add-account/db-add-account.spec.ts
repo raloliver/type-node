@@ -2,11 +2,11 @@
  * File: db-add-account.spec.ts
  * Project: type-node
  * Created: Tuesday, July 27th 2021, 4:04:47 pm
- * Last Modified: Wednesday, July 28th 2021, 6:58:52 am
+ * Last Modified: Thursday, July 29th 2021, 8:06:09 pm
  * Copyright © 2021 AMDE Agência
  */
 
-import {Encrypter} from '../../interfaces/encrypter.interface'
+import {Encrypter} from './db-add-account.protocols'
 import {DbAddAccount} from './db-add-account'
 
 interface SutTypes {
