@@ -2,7 +2,7 @@
  * File: bcrypt-adapter.ts
  * Project: type-node
  * Created: Friday, December 9th 2022, 10:03:58 am
- * Last Modified: Friday, December 9th 2022, 10:10:34 am
+ * Last Modified: Friday, December 9th 2022, 10:16:16 am
  * Copyright © 2022 AMDE Agência
  */
 
@@ -14,8 +14,8 @@ export class BcryptAdapter implements Encrypter {
   constructor(protected salt) {}
 
   async encrypt(value: string): Promise<string> {
-    await bcrypt.hash(value, this.salt)
+    const hash = await bcrypt.hash(value, this.salt)
 
-    return null
+    return hash
   }
 }
