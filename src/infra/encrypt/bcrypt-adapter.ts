@@ -2,7 +2,7 @@
  * File: bcrypt-adapter.ts
  * Project: type-node
  * Created: Friday, December 9th 2022, 10:03:58 am
- * Last Modified: Friday, December 9th 2022, 10:16:16 am
+ * Last Modified: Friday, December 9th 2022, 10:49:24 am
  * Copyright © 2022 AMDE Agência
  */
 
