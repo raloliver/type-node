@@ -2,7 +2,7 @@
  * File: mongo.helper.ts
  * Project: type-node
  * Created: Sunday, December 11th 2022, 7:10:19 am
- * Last Modified: Sunday, December 11th 2022, 8:27:47 am
+ * Last Modified: Sunday, December 11th 2022, 8:29:36 am
  * Copyright © 2022 AMDE Agência
  */
 
