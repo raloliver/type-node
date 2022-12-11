@@ -1,6 +1,6 @@
 {
   "name": "type-node",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,8 @@
     "test:unit": "npm test -- --watch -c jest-unit.config.js",
     "test:integration": "npm test -- --watch -c jest-integration.config.js",
     "test:staged": "npm test -- --findRelatedTests",
-    "test:ci": "npm test -- --coverage"
+    "test:ci": "npm test -- --coverage",
+    "test:verbose": "jest --passWithNoTests --runInBand"
   },
   "comments": {
     "scripts": "// -- mantem os parametros default do script"
@@ -18,7 +19,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@shelf/jest-mongodb": "^4.1.4",
+    "@types/bcrypt": "^5.0.0",
     "@types/jest": "^26.0.19",
+    "@types/mongodb": "^4.0.7",
     "@types/node": "^14.14.19",
     "@types/validator": "^13.6.3",
     "@typescript-eslint/eslint-plugin": "^4.11.1",
@@ -37,6 +41,8 @@
     "typescript": "^4.1.3"
   },
   "dependencies": {
+    "bcrypt": "^5.1.0",
+    "mongodb": "^4.12.1",
     "validator": "^13.6.0"
   }
 }
