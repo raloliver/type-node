@@ -2,11 +2,12 @@
  * File: account.spec.ts
  * Project: type-node
  * Created: Sunday, December 11th 2022, 6:50:54 am
- * Last Modified: Sunday, December 11th 2022, 7:16:40 am
+ * Last Modified: Sunday, December 11th 2022, 7:28:07 am
  * Copyright © 2022 AMDE Agência
  */
 
 import {MongoDBHelper} from '../helpers/mongodb.helper'
+import {AccountMongoDBRepository} from './account'
 
 describe('Account MongoDB Repository', () => {
   //connect on DB before and desconect after
