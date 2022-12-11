@@ -2,11 +2,12 @@
  * File: mongo.helper.ts
  * Project: type-node
  * Created: Sunday, December 11th 2022, 7:10:19 am
- * Last Modified: Sunday, December 11th 2022, 7:30:16 am
+ * Last Modified: Sunday, December 11th 2022, 8:26:31 am
  * Copyright © 2022 AMDE Agência
  */
 
 import {MongoClient, Collection} from 'mongodb'
+import {AccountModel} from '../../../../domain/models/account.model'
 
 /**
  * it is necessary init the prop as null, cause of the nature of object in JS
@@ -24,5 +25,11 @@ export const MongoDBHelper = {
 
   getCollection(name: string): Collection {
     return this.client_db.db().collection(name)
+  },
+
+  map: (collection: any): any => {
+    const {_id, ...collectionWithoutId} = collection
+
+    return Object.assign({}, collectionWithoutId, {id: _id})
   }
 }
